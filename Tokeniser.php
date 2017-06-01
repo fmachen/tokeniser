@@ -18,7 +18,7 @@ class Tokeniser {
 
     // @todo improve parser
 	const LS_ABBR = ['al','art','ann','app','appt','apt','apr','av','ave','auj','bât','bd','blvd','cf','chap','Cie','dir','Doc','Dr','éd','eg','env','ex','&','fasc','fém','fig','fr','hab','ie','inf','Ing','loc','cit','masc','M','Me','Mgr','Mlle','Mlles','MM','Mme','Mmes','Mr','MM','min','ms','no','réf','p','pb','pl','pp','rv','sec','sect','sing','spec','suiv','sup','suppl','t','tél','v','vb','vol','vs'];
-	//const RE_ABBR = "#(^|\s+)(\w|" . implode("|", self::LS_ABBR) . "\s+\.\s+#";
+	//const RE_ABBR = "#(^|\s*)(\w|" . implode("|", self::LS_ABBR) . "\s+\.\s*#";
 
     public static function parse($string) {
         $string = preg_replace(self::RE_ITEM_AND_MARKUP, "$1\n", $string);
@@ -31,6 +31,7 @@ class Tokeniser {
             $string = preg_replace("#\s+#", "\n", $match[0]);
             return $string;
         }, $string);
+        $string = preg_replace("#(^|\s+)(\w|" . implode("|", self::LS_ABBR) . ")\s+\.\s+#", "$1$2\n.\n", $string);
         return $string;
     }
 }
