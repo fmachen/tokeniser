@@ -2,6 +2,10 @@
 
 require "Tokeniser.php";
 
-$parsed = Tokeniser::parse("foo bar");
+$string = "foo <i>bar </i>buzz S.N.C.F..";
 
-var_dump($parsed);
+$parsed = Tokeniser::parse($string);
+
+echo "<xmp>$string</xmp>";
+echo "<hr>";
+echo "<xmp>$parsed</xmp>";
