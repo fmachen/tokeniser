@@ -13,7 +13,7 @@ class Tokeniser {
 
 	// regex use for correction
 	const RE_ATTRIBUTE_PUNC = "#(\s+<.*?\.)\n(.*?\n)#";
-	const RE_ACRONYMs = "#\s+(\w\s*\.\s*)+\w\s*\.?\s+#";
+	const RE_ACRONYMS = "#\s+(\w\s*\.\s*)+\w\s*\.?\s+#";
 	const RE_NUMBERS = "#\s+\d+(\s*[,/.-]?\s*\d+)+(\s+|$)#";
 
     // @todo improve parser
@@ -23,6 +23,10 @@ class Tokeniser {
     public static function parse($string) {
         $string = preg_replace(self::RE_ITEM_AND_MARKUP, "$1\n", $string);
         $string = preg_replace(self::RE_SENTENCE_PUNC, "\n$1\n\n", $string);
+        $string = preg_replace_callback(self::RE_ACRONYMS, function($match) {
+            $string = preg_replace('#\s+#', '', $match[0]);
+            return "\n$string\n";
+        }, $string);
         return $string;
     }
 }
