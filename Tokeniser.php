@@ -24,8 +24,12 @@ class Tokeniser {
         $string = preg_replace(self::RE_ITEM_AND_MARKUP, "$1\n", $string);
         $string = preg_replace(self::RE_SENTENCE_PUNC, "\n$1\n\n", $string);
         $string = preg_replace_callback(self::RE_ACRONYMS, function($match) {
-            $string = preg_replace('#\s+#', '', $match[0]);
+            $string = preg_replace("#\s+#", "", $match[0]);
             return "\n$string\n";
+        }, $string);
+        $string = preg_replace_callback(self::RE_NUMBERS, function($match) {
+            $string = preg_replace("#\s+#", "\n", $match[0]);
+            return $string;
         }, $string);
         return $string;
     }
