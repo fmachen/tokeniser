@@ -22,6 +22,7 @@ class Tokeniser {
 
     public static function parse($string) {
         $string = preg_replace(self::RE_ITEM_AND_MARKUP, "$1\n", $string);
+        $string = preg_replace(self::RE_SENTENCE_PUNC, "\n$1\n\n", $string);
         return $string;
     }
 }

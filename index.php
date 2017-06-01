@@ -2,7 +2,7 @@
 
 require "Tokeniser.php";
 
-$string = "foo <i>bar </i>buzz S.N.C.F..";
+$string = "Toto Tata. Foo <i>bar </i>buzz S.N.C.F..";
 
 $parsed = Tokeniser::parse($string);
 
